@@ -1,0 +1,162 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Fertilizer</title>
+  </head>
+  <style>
+    h1 {
+        color: mediumseagreen;
+        text-align: center;
+    }
+
+    .warning {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+    }
+    .card{
+    margin-left:500px;
+    margin-top: 20px;
+    color: white;
+    }
+    .container{
+    background:#edf2f7;
+    font-weight: bold;
+    padding-bottom:10px;
+    border-radius: 15px;
+    }
+</style>
+
+  <body style="background:#BCBBBBBB">
+
+     <!--=======================navbar=====================================================-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Fertilizer Recommendation</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">About</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+
+    <div class="container" > <h1 class="text-success">Fertilizer Recommendation System<span class="text-success"></span></h1>
+   
+ <!-- adding form -->
+    <form action="/predict" method="POST">
+        <div class="row">
+            <div class="col-md-4">
+              <label for="Temperature">Temperature</label>
+              <input type="number" step="0.01" id="Temperature" name="Temperature" placeholder="Enter Temperature in °C" class="form-control" required step="0">
+
+                  
+              </div>
+             <div class="col-md-4">
+              <label for="Humidity">Humidity</label>
+              <input type="number" step="0.01" id="Humidity" name="Humidity" placeholder="Enter Humidity in %" class="form-control" required step="0">
+
+                  
+              </div>
+              <div class="col-md-4">
+                <label for="soil_moisture">Soil Moisture</label>
+                  <input type="number" step="0.01" id="soil_moisture" name="soil_moisture" placeholder="Enter Soil Moisture value" class="form-control" required step="0">
+
+                  
+              </div>
+        </div>
+
+        <div class="row mt-4">
+              <div class="col-md-4">
+                <label for="soil_type">Soil type</label><br>
+                <select name="soil_type" id="soil_type">
+                  <option value="0">Black	</option>
+                  <option value="1">Clayey  </option>
+                  <option value="2">Loamy	</option>
+                  <option value="3">Red	</option>
+                  <option value="4">Sandy	</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="crop_type">Crop type</label><br>
+                <select name="crop_type" id="crop_type">
+                  <option value="0">Barley </option>
+                  <option value="1">Cotton</option>
+                  <option value="2">Ground Nuts</option>
+                  <option value="3">Maize</option>
+                  <option value="4">Millets</option>
+                  <option value="5">Oil Seeds</option>
+                  <option value="6">Paddy</option>
+                  <option value="7">Pulses</option>
+                  <option value="8">Sugarcane</option>
+                  <option value="9">Tobacco</option>
+                  <option value="10">Wheat</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="Nitrogen">Nitrogen</label>
+                <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen" class="form-control" required step="0">
+              </div>
+          </div>
+
+        
+              <div class="row mt-4">
+              <div class="col-md-4">
+                <label for="Potassium">Potassium</label>
+                  <input type="number" id="Potassium" name="Potassium" placeholder="Enter Potassium" class="form-control" required step="0">
+                  
+              </div>
+            <div class="col-md-4">
+              <label for="Phosporus">Phosphorus</label>
+              <input type="number" id="Phosporus" name="Phosporus" placeholder="Enter Phosphorus" class="form-control" required step="00">
+            </div>
+        </div>
+
+
+
+         <div class="row mt-4">
+         <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-primary btn-lg">Get Recommendation</button>
+          </div>
+          </div>
+    </form>
+     {% if result %} 
+		<div class="card bg-dark " style="width: 18rem;">
+		  <img src="/static/imgf.jpg" class="card-img-top" alt="..">
+		  <div class="card-body">
+			<h5 class="card-title">Recommend Fertilizer for Crop:</h5>
+			<p class="card-text">{{ result }}</p>
+		  </div>
+		</div>
+	    {% endif %}
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
